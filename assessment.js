@@ -2,7 +2,7 @@
 const userNameInput = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
 const resultDivided = document.getElementById('result-area');
-const tweetDivided = document.getElementByID('rtweet-area');
+const tweetDivided = document.getElementByID('tweet-area');
 
 
 /**@param {HTMLElement} element 
@@ -21,7 +21,7 @@ assessmentButton.onclick = () => {
     
     removeAllChildren(resultDivided);
     const header = document.createElement('h3');
-    header.innerText ='診断結果'
+    header.innerText ='診断結果';
     resultDivided.appendChild(header);
     
     const paragraph = document.createElement('p');
@@ -33,10 +33,12 @@ assessmentButton.onclick = () => {
     removeAllChildren(tweetDivided);
     const anchor = document.cretateElement('a');
     const  hrefValue = 'https://twitter.com/intent/tweet?button_hashtag='
-        + encordeURIComponent('あなたのいいところ')
-        + '&rel_src=twsrc%5Etfw';
+        + encodeURIComponent('あなたのいいところ')
+        + '&ref_src=twsrc%5Etfw';
     anchor.setAttribute('href', hrefValue);
-    anchor.className = 'Tweet #あなたのいいところ';
+    anchor.className = 'twitter-hashtag-button';
+    anchor.setAttribute('date-text', result);
+    anchor.innerText = 'Tweet #あなたのいいところ';
     tweetDivided.appendChild(anchor);
     
     //widgets.js
@@ -72,14 +74,14 @@ cosnt answers = [
 */
 function assessment(userName) {
     //全文字のコードを番号にして合計を出す
-    let sumOfCharCode =  0;
+    let sumOfcharCode =  0;
     for (let i = 0; i < userName.length; i++) {
-        sumOfCharCode = sumOfCharCode + userName.charcodeAt(i);
+        sumOfcharCode = sumOfcharCode + userName.charCodeAt(i);
     }
     
     
     //名前の合計数を回答の数で割って添字を求める
-    const index = sumOfCharCode % answers.length;
+    const index = sumOfcharCode % answers.length;
     let result = answers[index];
     
     result = result.replace(/{userName}/g, userName);
@@ -90,7 +92,7 @@ function assessment(userName) {
 //テスト
 console.assert (
     assessment('太郎') === '太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
-    '診断結果の文章内で置き換えられた名前が一致していません');
+    '診断結果に表示された名前が入力された名前と一致していません');
     
 console.assert(
     assessment('太郎') === assessment('太郎'),
