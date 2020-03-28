@@ -1,55 +1,61 @@
 'use strict'
 const userNameInput = document.getElementById('user-name');
-const assessmentButton = document.getElementById('assessment');
+const assessmentButton = document.getElenmentById('assessment');
 const resultDivided = document.getElementById('result-area');
-const tweetDivided = document.getElementByID('tweet-area');
+const tweetDivided = document.getElementById)('tweet-area');
 
-
-/*
-*@param {HTMLElement} element 
-*指定した子要素を全て削除
+/**
+* 選択した要素の子要素を削除
+* @param {HTMLElement} element HTML要素
 */
-function removeAllChildren(element){
-    while (element.firstChild){//子要素が有る限り処理を実行
-        element.removeChild(element.firstChild);
+function removeAllChildren(element) {
+    while (element.firstChild) {
+       element.removeChild(element.firstChild);
     }
 }
+
+
 assessmentButton.onclick = () => {
     const userName = userNameInput.value;
-    if (userName.length === 0 ) {
-        return;
+    if ( userName.length === 0) {  //子要素が空の場合
+        return ;
     }
     
+    //resultarea
     removeAllChildren(resultDivided);
     const header = document.createElement('h3');
-    header.innerText ='診断結果';
+    header.innerText = '診断結果';
     resultDivided.appendChild(header);
     
+    
+    removeAllChildren();
     const paragraph = document.createElement('p');
-    const result = assessment(userName);
+    const result = assessment('userName');
     paragraph.innerText = result;
     resultDivided.appendChild(paragraph);
     
-    //ツイートエリア
+    
+    //tweetarea
     removeAllChildren(tweetDivided);
-    const anchor = document.cretateElement('a');
-    const  hrefValue = 'https://twitter.com/intent/tweet?button_hashtag='
+    const anchor = document.createElement('a');
+    const hrefValue = 'https://twitter.com/intent/tweet?button_hashtag='
         + encodeURIComponent('あなたのいいところ')
         + '&ref_src=twsrc%5Etfw';
     anchor.setAttribute('href', hrefValue);
-    anchor.className = 'twitter-hashtag-button';
+    anchor.classNama = 'twitter-hashtag-button';
     anchor.setAttribute('date-text', result);
     anchor.innerText = 'Tweet #あなたのいいところ';
     tweetDivided.appendChild(anchor);
     
-    //widgets.js
+    
+    //widgets.jsの設定
     const script = document.createElement('script');
     script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
     tweetDivided.appendChild(script);
-    
 };
+    
 
-cosnt answers = [
+const answers = [
     '{userName}のいいところは声です。{userName}の特徴的な声は皆を引きつけ、心に残ります。',
     '{userName}のいいところは眼差しです。{userName}に見つめられた人は気になって仕方がないでしょう。',
     '{userName}のいいところは情熱です。{userName}の情熱に周りの人は感化されます。',
@@ -66,42 +72,39 @@ cosnt answers = [
     '{userName}のいいところは気配りです。{userName}の配慮が多くの人を救っています。',
     '{userName}のいいところはその全てです。ありのままの{userName}自身がいいところなのです。',
     '{userName}のいいところは自制心です。やばいと思った時にしっかり衝動を抑えられる{userName}が皆に評価されています。'
-    ];
-    
-    
-/**名前の文字列から診断結果を返す関数
-*@param {String} userName ユーザ名
-*@result{String} result
+];
+
+
+/*
+* 名前の文字列を受け取り診断結果を返す関数
+* @param {String} userName ユーザ名
+* @return {String} 診断結果
 */
-function assessment(userName) {
-    //全文字のコードを番号にして合計を出す
-    let sumOfcharCode =  0;
+
+funcution assessment (userName) {
+    //全文のコードを数値で返却し、合計を返す
+    let sumOfcharCode = 0;
     for (let i = 0; i < userName.length; i++) {
         sumOfcharCode = sumOfcharCode + userName.charCodeAt(i);
     }
     
-    
-    //名前の合計数を回答の数で割って添字を求める
-    const index = sumOfcharCode % answers.length;
+    //文字コードの番号を合計して回答の合計数で割って添字を求める
+    const index = sumOfcharCode % answers.length ;
     let result = answers[index];
     
-    result = result.replace(/{userName}/g, userName);
+    result = result.replece(/{userName}/g.userName);
     return result;
-    
 }
-
-//テスト
-console.assert (
-    assessment('太郎') === '太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
-    '診断結果に表示された名前が入力された名前と一致していません');
     
-console.assert(
-    assessment('太郎') === assessment('太郎'),
-    '同じ名前が入力された時に同じ診断結果を出力する処理が正しくありません);
-    
-    
-    
-    
+ //テストコード
+ console.assert (
+     assessment('太郎') === '太郎のいいところは決断力で。太郎がする決断にいつも助けられる人がいます。',
+     '診断結果のuserNameを入力された文字列に置き換える処理が正しくありません。'
+ );
+ consolo.assert (
+     assessment('太郎') === assessment('太郎'),
+     '入力が同じ文字列であれば、同じ診断結果が出力される処理が正しくありません。'
+ );
     
     
     
