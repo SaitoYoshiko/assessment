@@ -87,10 +87,10 @@ funcution assessment (userName) {
     }
     
     //文字コードの番号を合計して回答の合計数で割って添字を求める
-    const index = sumOfcharCode % answers.length ;
+    const index = sumOfcharCode % answers.length;
     let result = answers[index];
     
-    result = result.replece(/{userName}/g.userName);
+    result = result.replace(/{userName}/g.userName);
     return result;
 }
     
