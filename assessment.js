@@ -21,7 +21,7 @@ assessmentButton.onclick = () => {
         return ;
     }
     
-    //resultarea
+    //result-area
     removeAllChildren(resultDivided);
     const header = document.createElement('h3');
     header.innerText = '診断結果';
@@ -33,7 +33,7 @@ assessmentButton.onclick = () => {
     resultDivided.appendChild(paragraph);
     
     
-    //tweetarea
+    //tweet‐area
     removeAllChildren(tweetDivided);
     const anchor = document.createElement('a');
     const hrefValue = 'https://twitter.com/intent/tweet?button_hashtag='
@@ -69,7 +69,8 @@ const answers = [
     '{userName}のいいところは好奇心です。新しいことに向かっていく{userName}の心構えが多くの人に魅力的に映ります。',
     '{userName}のいいところは気配りです。{userName}の配慮が多くの人を救っています。',
     '{userName}のいいところはその全てです。ありのままの{userName}自身がいいところなのです。',
-    '{userName}のいいところは自制心です。やばいと思った時にしっかり衝動を抑えられる{userName}が皆に評価されています。'
+    '{userName}のいいところは自制心です。やばいと思った時にしっかり衝動を抑えられる{userName}が皆に評価されています。',
+    '{userName}のいいところは優しさです。{userName}の優しい雰囲気や立ち居振る舞いに多くの人が癒されています。'
 ];
 
 
@@ -79,7 +80,7 @@ const answers = [
 * @return {String} 診断結果
 */
 
-funcution assessment (userName) {
+function assessment (userName) {
     //全文のコードを数値で返却し、合計を返す
     let sumOfcharCode = 0;
     for (let i = 0; i < userName.length; i++) {
@@ -97,9 +98,9 @@ funcution assessment (userName) {
  //テストコード
  console.assert (
      assessment('太郎') === '太郎のいいところは決断力で。太郎がする決断にいつも助けられる人がいます。',
-     '診断結果のuserNameを入力された文字列に置き換える処理が正しくありません。'
+     '診断結果のuserNameに入力された文字列に置き換える処理が正しくありません。'
  );
- consolo.assert (
+ console.assert (
      assessment('太郎') === assessment('太郎'),
      '入力が同じ文字列であれば、同じ診断結果が出力される処理が正しくありません。'
  );
