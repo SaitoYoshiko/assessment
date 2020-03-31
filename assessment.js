@@ -1,3 +1,4 @@
+(function() {
 'use strict'
 const userNameInput = document.getElementById('user-name');
 const assessmentButton = document.getElenmentById('assessment');
@@ -106,6 +107,6 @@ function assessment (userName) {
      '入力が同じ文字列であれば、同じ診断結果が出力される処理が正しくありません。'
  );
     
-    
+ )}   
     
     
