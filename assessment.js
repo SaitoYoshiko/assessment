@@ -1,4 +1,3 @@
-(function() {
     'use strict'
     const userNameInput = document.getElementById('user-name');
     const assessmentButton = document.getElementById('assessment');
@@ -15,8 +14,6 @@
         }
     }
 
-
-
     assessmentButton.onclick = () => {
         const userName = userNameInput.value;
         if ( userName.length === 0) {  //子要素が空の場合
@@ -30,7 +27,7 @@
         resultDivided.appendChild(header);
 
         const paragraph = document.createElement('p');
-        const result = assessment('userName');
+        const result = assessment(userName);
         paragraph.innerText = result;
         resultDivided.appendChild(paragraph);
 
@@ -42,8 +39,8 @@
             + encodeURIComponent('あなたのいいところ')
             + '&ref_src=twsrc%5Etfw';
         anchor.setAttribute('href', hrefValue);
-        anchor.classNama = 'twitter-hashtag-button';
-        anchor.setAttribute('date-text', result);
+        anchor.className = 'twitter-hashtag-button';
+        anchor.setAttribute('data-text', result);
         anchor.innerText = 'Tweet #あなたのいいところ';
         tweetDivided.appendChild(anchor);
 
@@ -83,7 +80,7 @@
     */
 
     function assessment (userName) {
-        //全文のコードを数値で返却し、合計を返す
+        //名前を16進の数値に変換し、全ての合計を返す
         let sumOfcharCode = 0;
         for (let i = 0; i < userName.length; i++) {
             sumOfcharCode = sumOfcharCode + userName.charCodeAt(i);
@@ -93,7 +90,7 @@
         const index = sumOfcharCode % answers.length;
         let result = answers[index];
 
-        result = result.replace(/{userName}/g.userName);
+        result = result.replace(’{userName}’.userName);
         return result;
     }
 
@@ -104,7 +101,7 @@
      );
      console.assert (
          assessment('太郎') === assessment('太郎'),
-         '入力が同じ文字列であれば、同じ診断結果が出力される処理が正しくありません。'
+         '入力が同じ文字列であれば、同じ診断結果を出力する処理が正しくありません。'
      );
     
 })
